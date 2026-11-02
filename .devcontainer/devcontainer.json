@@ -1,0 +1,38 @@
+{
+    "name":"PAI-devcontainer",
+    "build": {
+        "dockerfile": "Dockerfile",
+        "context": ".."
+    },
+    "workspaceFolder": "/workspace",
+    "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind",
+    "mounts": [
+        "source=pai-devcontainer-uv-cache,target=/root/.cache/uv,type=volume",
+        "source=claude-code-config-${devcontainerId},target=/root/.claude,type=volume"
+    ],
+    "containerEnv": {
+        "CLAUDE_CONFIG_DIR": "/root/.claude"
+    },
+    "remoteUser": "root",
+    "hostRequirements": {
+        "gpu": true
+    },
+    "runArgs": [
+        "--platform=linux/amd64", "--gpus", "all", "--shm-size=8g",
+        "-e", "NVIDIA_DRIVER_CAPABILITIES=all"
+    ],
+    "postCreateCommand": "bash .devcontainer/post-create.sh",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "anthropic.claude-code",
+                "ms-python.python",
+                "charliermarsh.ruff",
+                "esbenp.prettier-vscode"
+            ],
+            "settings": {
+                "python.defaultInterpreterPath": "/opt/venv/bin/python"
+            }
+        }
+    }
+}

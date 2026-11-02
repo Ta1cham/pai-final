@@ -1,0 +1,10 @@
+# 実験結果（動画・画像・ログ）
+outputs/
+
+# キャッシュ
+__pycache__/
+.ruff_cache/
+.venv/
+
+# 個人のローカル設定
+.claude/settings.local.json
